@@ -1,0 +1,14 @@
+# Secrets – never commit real credentials
+secrets.h
+
+# Arduino / PlatformIO
+.pio
+.vscode
+.idea
+*.bin
+*.elf
+*.map
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
