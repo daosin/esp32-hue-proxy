@@ -56,22 +56,28 @@ This is required by the in-place IP replacement.
 
 Add (or adjust) the Emulated Hue integration in `configuration.yaml`:
 
-```yaml
+\`\`\`yaml
 emulated_hue:
-  host_ip: 10.10.10.112          # IP of Home Assistant
-  advertise_ip: 172.20.1.180     # IP of this ESP proxy (must match ESP_IP)
+  host_ip: 10.10.10.112
+  advertise_ip: 172.20.1.180
   listen_port: 80
-  expose_by_default: false       # only expose entities listed below
+  expose_by_default: false
   entities:
     light.rgb_1:
-      name: "Light"
+      name: "Dracenna"
       hidden: false
     switch.tv_outlet:
       name: "TV"
       hidden: false
-    switch.pc_outlet:
+    switch.pc_outlet_pc:
       name: "Monitor"
       hidden: false
+\`\`\`
+
+### Notes
+
+- `host_ip` — address where Home Assistant actually runs Emulated Hue.
+- ...
 
 ## License
 
