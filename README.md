@@ -52,6 +52,27 @@ Amazon Echo  ── SSDP (UDP 1900) ──►  ESP32 (this device)
 (e.g. both `10.10.10.112` and `172.20.1.180` are 12 characters).  
 This is required by the in-place IP replacement.
 
+## Home Assistant configuration
+
+Add (or adjust) the Emulated Hue integration in `configuration.yaml`:
+
+```yaml
+emulated_hue:
+  host_ip: 10.10.10.112          # IP of Home Assistant
+  advertise_ip: 172.20.1.180     # IP of this ESP proxy (must match ESP_IP)
+  listen_port: 80
+  expose_by_default: false       # only expose entities listed below
+  entities:
+    light.rgb_1:
+      name: "Light"
+      hidden: false
+    switch.tv_outlet:
+      name: "TV"
+      hidden: false
+    switch.pc_outlet:
+      name: "Monitor"
+      hidden: false
+
 ## License
 
 MIT
