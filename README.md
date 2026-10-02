@@ -6,9 +6,10 @@ Lets Amazon Echo / Alexa discover and control Home Assistant devices via the **E
 
 ## How it works
 
+```
 Amazon Echo  ── SSDP (UDP 1900) ──►  ESP32 (this device)
-── HTTP port 80 ─────►  ESP32  ── proxy ──►  Home Assistant Emulated Hue
-
+             ── HTTP port 80 ─────►  ESP32  ── proxy ──►  Home Assistant Emulated Hue
+```
 
 - ESP answers SSDP discovery as a Philips Hue Bridge
 - All HTTP requests are transparently proxied to Home Assistant
@@ -54,14 +55,17 @@ This is required by the in-place IP replacement.
 
 ## Home Assistant configuration
 
-Add (or adjust) the Emulated Hue integration in `configuration.yaml`:
+Emulated Hue is configured in `configuration.yaml`  
+(**there is no full UI setup** for `host_ip` / `advertise_ip` / entity list).
 
-\`\`\`yaml
+Example:
+
+```yaml
 emulated_hue:
-  host_ip: 10.10.10.112
-  advertise_ip: 172.20.1.180
+  host_ip: 10.10.10.112          # IP of Home Assistant
+  advertise_ip: 172.20.1.180     # IP of this ESP proxy (must match ESP_IP)
   listen_port: 80
-  expose_by_default: false
+  expose_by_default: false       # only expose entities listed below
   entities:
     light.rgb_1:
       name: "Dracenna"
@@ -72,12 +76,17 @@ emulated_hue:
     switch.pc_outlet_pc:
       name: "Monitor"
       hidden: false
-\`\`\`
+```
 
 ### Notes
 
-- `host_ip` — address where Home Assistant actually runs Emulated Hue.
-- ...
+- `host_ip` — address where Home Assistant actually runs Emulated Hue
+- `advertise_ip` — address that appears in `description.xml` / discovery; set it to the **ESP proxy IP** so Alexa talks to the ESP
+- `listen_port: 80` is required for modern Echo devices
+- After changing the config, restart Home Assistant
+- Then in the Alexa app: **Devices → Add Device → Philips Hue → Discover**
+- Replace the example entity IDs and names with your own
+- Only entities listed under `entities:` (with `hidden: false`) will be visible to Alexa when `expose_by_default: false`
 
 ## License
 
