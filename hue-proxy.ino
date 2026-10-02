@@ -3,7 +3,7 @@
  *
  * Echo (LAN) -> ESP :80 + UDP 1900 -> Home Assistant Emulated Hue
  *
- * GitHub: https://github.com/YOUR_USERNAME/esp32-hue-proxy
+ * GitHub: https://github.com/daosin/esp32-hue-proxy
  */
 
 #include <WiFi.h>
